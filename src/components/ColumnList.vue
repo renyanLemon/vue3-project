@@ -1,8 +1,8 @@
 <template>
     <div class="row">
-        <div v-for="column in columnList" :key="column.id" class="col-4">
-          <div class="card">
-            <img :src="column.avatar" alt="头像">
+        <div v-for="column in columnList" :key="column.id" class="col-3">
+          <div class="card text-dark bg-light mb-3 h-100">
+            <img :src="column.avatar" alt="头像" class="card-img-top">
             <div class="card-body">
               <h5>{{column.title}}</h5>
               <p>{{column.description}}</p>
@@ -49,7 +49,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-img {
-  height: 300px;
-}
 </style>
