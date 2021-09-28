@@ -6,7 +6,7 @@
             <div class="card-body">
               <h5>{{column.title}}</h5>
               <p>{{column.description}}</p>
-              <a href="#">进入专栏</a>
+              <router-link :to="`/column/${column.id}`">进入专栏</router-link>
             </div>
           </div>
         </div>

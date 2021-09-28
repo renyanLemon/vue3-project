@@ -1,7 +1,7 @@
 <template>
   <div class="validata-input-container pb-3">
     <input
-      type="email"
+      v-bind="$attrs"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
       id="exampleInputEmail1"
@@ -14,7 +14,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue'
+import { defineComponent, reactive, PropType, onMounted } from 'vue'
+import { emitter } from './ValidateForm.vue'
 const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 interface RuleProp {
   type: 'required' | 'email';
@@ -22,6 +23,7 @@ interface RuleProp {
 }
 export type RulesProp = RuleProp[];
 export default defineComponent({
+  inheritAttrs: false,
   props: {
     rules: Array as PropType<RulesProp>,
     modelValue: String
@@ -38,7 +40,7 @@ export default defineComponent({
       console.log('targetValue', context.emit)
       context.emit('update:modelValue', targetValue)
     }
-    const vaildateInput = () => {
+    const validateInput = () => {
       if (props.rules) {
         const allPassed = props.rules.every(rule => {
           let passed = true
@@ -56,11 +58,16 @@ export default defineComponent({
           return passed
         })
         inputRef.error = !allPassed
+        return allPassed
       }
+      return true
     }
+    onMounted(() => {
+      emitter.emit('form-item-created', validateInput)
+    })
     return {
       inputRef,
-      vaildateInput,
+      validateInput,
       updataValue
     }
   }
