@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
+  <div class="main">
     <global-header :user="currentUser"></global-header>
 
-    <router-view></router-view>
+    <div class="content">
+      <router-view></router-view>
+    </div>
 
     <footer>
       <div>@vue3</div>
@@ -34,13 +36,28 @@ export default defineComponent({
 </script>
 
 <style>
-#app {
+html {
+  height: 100%;
 }
-.formLogin {
-  width: 300px;
+body {
+  height: 100%;
+}
+#app {
+  height: 100%;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  flex: 1;
 }
 footer {
   width: 100%;
-  background-color: #efefef;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #fafafa;
 }
 </style>
